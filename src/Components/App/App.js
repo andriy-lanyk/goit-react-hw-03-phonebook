@@ -11,6 +11,18 @@ class App extends Component {
     filter: "",
   };
 
+  componentDidMount() {
+    if (localStorage.getItem("myPhonebook")?.length > 0) {
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem("myPhonebook")),
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    localStorage.setItem("myPhonebook", JSON.stringify(this.state.contacts));
+  }
+
   getFilter = (value) => {
     this.setState({ filter: value });
   };
